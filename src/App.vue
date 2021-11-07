@@ -1,17 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <b-navbar type="dark" variant="info" id="nav">
+      <b-navbar-brand href="#" v-on:click.stop="$router.push({path:'/lists'})">WishList</b-navbar-brand>
+      <b-navbar-nav class="ml-auto">
+        <b-button v-if="$router.currentRoute.path === '/lists'" v-on:click="$router.push({path:'/list/'+uuid.v4()})"><b-icon icon="plus"></b-icon><span>Create</span></b-button>
+      </b-navbar-nav>
+    </b-navbar>
+    <b-container fluid="sm">
+      <router-view></router-view>
+    </b-container>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {uuid} from 'vue-uuid';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {uuid}
+  },
+  methods: {
+    listSelected(event) {
+      console.log(event);
+    }
   }
 }
 </script>
@@ -23,6 +35,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+#nav {
+  margin-bottom: 10px;
 }
 </style>
